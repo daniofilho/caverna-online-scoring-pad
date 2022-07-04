@@ -1,12 +1,13 @@
-import { resolve } from "path";
+const path = require("path");
 
 const i18n = {
   i18n: {
+    localeDetection: false,
     locales: ["pt-BR", "en"],
     defaultLocale: "pt-BR",
-    localePath: resolve("./public/locales"),
+    localePath: path.resolve("./public/locales"),
     reloadOnPrerender: process.env.NODE_ENV === "development",
   },
 };
 
-export default i18n;
+module.exports = i18n;
