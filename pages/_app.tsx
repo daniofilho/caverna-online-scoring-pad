@@ -1,7 +1,6 @@
 import { appWithTranslation } from "next-i18next";
 import { DefaultSeo } from "next-seo";
 import type { AppProps } from "next/app";
-import Head from "next/head";
 import Router from "next/router";
 import Script from "next/script";
 
@@ -29,27 +28,6 @@ Router.events.on("routeChangeError", () => {
 
 const MyApp: React.FC<AppProps> = ({ Component, router, pageProps }) => (
   <>
-    <Head>
-      <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-
-      <meta id="HandheldFriendly" content="True" />
-      <meta id="MobileOptimized" content="320" />
-      <meta
-        name="viewport"
-        content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
-      />
-      <meta
-        httpEquiv="Cache-Control"
-        content="no-cache, no-store, must-revalidate"
-      />
-
-      <link
-        rel="shortcut icon"
-        type="image/png"
-        href="/images/logo/favicon.png"
-      />
-    </Head>
-
     <DefaultSeo {...SEO()} />
 
     <ChakraProvider resetCSS={false} theme={chakrauiTheme.theme}>
@@ -67,16 +45,12 @@ const MyApp: React.FC<AppProps> = ({ Component, router, pageProps }) => (
 
     <ColorModeScript initialColorMode={chakrauiTheme.config.initialColorMode} />
 
-    {process.env.NEXT_PUBLIC_ENABLE_GA === "true" && (
-      <>
-        <Script
-          async
-          type="text/javascript"
-          src="https://www.googletagmanager.com/gtag/js?id=PENDENTE"
-        />
-        <Script type="text/javascript" src="/scripts/ga.js" />
-      </>
-    )}
+    <Script
+      async
+      type="text/javascript"
+      src="https://www.googletagmanager.com/gtag/js?id=G-JQQR4Z801Z"
+    />
+    <Script type="text/javascript" src="/scripts/ga.js" />
   </>
 );
 

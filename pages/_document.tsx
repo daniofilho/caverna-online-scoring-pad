@@ -41,6 +41,25 @@ export default class MyDocument extends Document {
     return (
       <Html lang="pt-BR">
         <Head>
+          <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+          <meta id="HandheldFriendly" content="True" />
+          <meta id="MobileOptimized" content="320" />
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
+          />
+          <meta
+            httpEquiv="Cache-Control"
+            content="no-cache, no-store, must-revalidate"
+          />
+
+          <link
+            rel="shortcut icon"
+            type="image/png"
+            href="/images/favicon.png"
+          />
+
           {/* Usado pelo next-pwa */}
           <meta name="application-name" content={seo().title} />
           <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -85,11 +104,6 @@ export default class MyDocument extends Document {
             href="/pwa/favicon-16x16.png"
           />
           <link rel="manifest" href="/pwa/manifest.json" />
-          <link
-            rel="mask-icon"
-            href="/pwa/safari-pinned-tab.svg"
-            color="#ddcabb"
-          />
           <meta name="twitter:card" content="summary" />
           <meta name="twitter:url" content={process.env.NEXT_PUBLIC_SITE_URL} />
           <meta name="twitter:title" content={seo().title} />
