@@ -8,7 +8,6 @@ export const Container = styled.div`
   padding: 1rem 0;
 
   img {
-    height: 0.7rem;
-    box-shadow: rgb(204 204 204) 2px 2px 7px;
+    height: 1.5rem;
   }
 `;

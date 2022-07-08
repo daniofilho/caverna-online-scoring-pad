@@ -27,7 +27,6 @@ module.exports = {
     "unused-imports",
   ],
   rules: {
-    "prettier/prettier": "error",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/jsx-filename-extension": [1, { extensions: [".tsx"] }],

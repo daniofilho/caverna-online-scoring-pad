@@ -22,6 +22,9 @@ export default createGlobalStyle`
     border: 0;
 
 		min-height: 100vh;
+
+    background-color: ${({ theme }) => theme.background.color};
+    color: ${({ theme }) => theme.background.contrast};
   }
 
   body {

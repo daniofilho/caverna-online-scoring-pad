@@ -1,3 +1,8 @@
 {
-  "test": "PT BR"
+  "site-title": "Caverna",
+  "author": "Autor",
+  "contribute": "Contribua",
+  "support-me": "Fazer uma doação",
+  "about-the-project": "Sobre o projeto",
+  "languages": "Linguagens"
 }

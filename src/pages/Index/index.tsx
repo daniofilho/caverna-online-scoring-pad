@@ -1,20 +1,17 @@
-import { useTranslation } from "next-i18next";
-import dynamic from "next/dynamic";
+import { useTranslation } from 'next-i18next';
 
-import { Container } from "./styles";
+import TopHeader from 'components/molecule/TopHeader';
 
-const LanguagesMenu = dynamic(() => import("components/atom/LanguagesMenu"), {
-  ssr: false,
-});
+import { Container } from './styles';
 
 const Index: React.FC = () => {
   const { t } = useTranslation();
 
   return (
     <Container>
-      <LanguagesMenu />
+      <TopHeader />
 
-      <h1>{t("test")}</h1>
+      <h1>{t('test')}</h1>
     </Container>
   );
 };

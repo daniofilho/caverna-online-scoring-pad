@@ -1,3 +1,8 @@
 {
-  "test": "EN"
+  "site-title": "Caverna",
+  "author": "Author",
+  "contribute": "Contribute",
+  "support-me": "Buy me a hot beverage!",
+  "about-the-project": "About the project",
+  "languages": "Languages"
 }
