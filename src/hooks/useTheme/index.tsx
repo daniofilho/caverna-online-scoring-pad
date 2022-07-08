@@ -1,77 +1,66 @@
 import {
   createContext,
   useContext,
-  useEffect,
   useState,
   useCallback,
   useMemo,
 } from "react";
+import { useLocalStorage } from "react-use";
 
-import Store from "lib/Store";
+import { useColorMode } from "@chakra-ui/react";
 import { ThemeProvider, DefaultTheme } from "styled-components";
 import darkTheme from "styles/themes/dark";
-import defaultTheme from "styles/themes/default";
+import lightTheme from "styles/themes/light";
 
 import config from "config/general";
 
-interface IUseThemeContextData {
-  theme: DefaultTheme;
-  toggleTheme: () => void;
-  themeNumber: number;
-}
+import {
+  IThemesAvailable,
+  IUseThemeContextData,
+  IUseThemeProviderProps,
+  ThemeNames,
+} from "./hook-types";
 
-interface IUseThemeProviderProps {
-  children: React.ReactNode;
-}
-
-const themeStore = Store(`${config.localStorageKey}-theme`);
-
-const themes = [defaultTheme, darkTheme];
+const themes: IThemesAvailable = {
+  light: lightTheme,
+  dark: darkTheme,
+};
 
 const UseThemeContext = createContext<IUseThemeContextData>(
   {} as IUseThemeContextData
 );
 
 const UseThemeProvider: React.FC<IUseThemeProviderProps> = ({ children }) => {
-  // # Tema
+  const { setColorMode } = useColorMode();
 
-  const [theme, setTheme] = useState<DefaultTheme>(themes[0]);
-  const [themeNumber, setThemeNumber] = useState<number>(0);
+  const [storeThemeName, setStoreThemeName] = useLocalStorage(
+    `${config.localStorageKey}-theme`
+  );
 
-  const toggleTheme = useCallback((): void => {
-    setThemeNumber((oldNumber) => {
-      const newTheme = oldNumber + 1;
-      return newTheme < themes.length ? newTheme : 0;
-    });
-  }, []);
+  const [theme, setTheme] = useState<DefaultTheme>(
+    storeThemeName === "dark" ? themes.dark : themes.light
+  );
 
-  const updateTheme = useCallback((newThemeNumber: number): void => {
-    const auxTheme = themes[newThemeNumber];
+  const toggleTheme = useCallback(
+    (newThemeName?: ThemeNames): void => {
+      let newTheme = theme.name === "light" ? themes.dark : themes.light;
 
-    const newTheme: DefaultTheme = {
-      ...auxTheme,
-    };
+      if (newThemeName) {
+        newTheme = newThemeName === "light" ? themes.light : themes.dark;
+      }
 
-    setTheme(newTheme);
-    themeStore.setItem(`number`, String(newThemeNumber));
-  }, []);
-
-  useEffect(() => {
-    const storeThemeNumber = themeStore.getItem(`number`);
-    if (storeThemeNumber) setThemeNumber(parseInt(storeThemeNumber, 10));
-  }, []);
-
-  /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
-  useEffect(() => {
-    updateTheme(themeNumber);
-  }, [themeNumber, updateTheme]);
+      setColorMode(newTheme.name);
+      setTheme(newTheme);
+      setStoreThemeName(newTheme.name);
+    },
+    [setColorMode, setStoreThemeName, theme.name]
+  );
 
   /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
   const contextValue = useMemo(
-    () => ({ theme, toggleTheme, themeNumber }),
-    [theme, themeNumber, toggleTheme]
+    () => ({ theme, toggleTheme }),
+    [theme, toggleTheme]
   );
 
   return (

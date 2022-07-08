@@ -3,7 +3,13 @@ import styled from "styled-components";
 export const Container = styled.header`
   background-color: ${({ theme }) => theme.primary.color};
 
+  position: sticky;
+  top: 0;
+
   nav {
+    max-width: 62rem;
+    margin: 0 auto;
+
     display: flex;
     flex-direction: row;
     justify-content: space-between;

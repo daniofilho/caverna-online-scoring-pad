@@ -1,13 +1,15 @@
-import { DefaultTheme } from 'styled-components';
+import { DefaultTheme } from "styled-components";
 
 const theme: DefaultTheme = {
+  name: "dark",
+
   background: {
-    color: '#282a36',
-    contrast: '#FFFFFF',
+    color: "#282a36",
+    contrast: "#FFFFFF",
   },
   primary: {
-    color: '#343538',
-    contrast: '#FFFFFF',
+    color: "#343538",
+    contrast: "#FFFFFF",
   },
 };
 

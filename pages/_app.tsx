@@ -16,6 +16,8 @@ import AppProvider from "hooks";
 import * as chakrauiTheme from "config/chackraui-color-theme";
 import SEO from "config/seo";
 
+import "react-toastify/dist/ReactToastify.css";
+
 Router.events.on("routeChangeStart", () => {
   const { body } = document;
   body.classList.add("loading-page");

@@ -1,9 +1,9 @@
+import { Suspense } from "react";
 import { BsGithub, BsPaypal } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdOutlineWbSunny, MdNightlight, MdQrCode } from "react-icons/md";
 
 import { useTranslation } from "next-i18next";
-import dynamic from "next/dynamic";
 
 import {
   Drawer,
@@ -17,15 +17,13 @@ import { useDisclosure } from "@chakra-ui/react";
 
 import { useTheme } from "hooks/useTheme";
 
-import { Container, DrawerContainer } from "./styles";
+import LanguagesMenu from "components/atom/LanguagesMenu";
 
-const LanguagesMenu = dynamic(() => import("components/atom/LanguagesMenu"), {
-  ssr: false,
-});
+import { Container, DrawerContainer } from "./styles";
 
 const TopHeader: React.FC = () => {
   const { t } = useTranslation();
-  const { themeNumber, toggleTheme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -40,7 +38,7 @@ const TopHeader: React.FC = () => {
           <h1>{t("common:site-title")}</h1>
 
           <button type="button" onClick={() => toggleTheme()}>
-            {themeNumber === 0 ? <MdOutlineWbSunny /> : <MdNightlight />}
+            {theme.name === "dark" ? <MdOutlineWbSunny /> : <MdNightlight />}
           </button>
         </nav>
       </Container>
@@ -53,17 +51,24 @@ const TopHeader: React.FC = () => {
 
             <DrawerBody>
               <p>
-                <strong>{t("common:about-the-project")}:</strong>
+                <strong>{t("common:about-the-project")}</strong>
               </p>
+
+              <p>{t("common:disclaimer")}</p>
+
+              <hr />
 
               <p>
                 <strong>{t("common:author")}:</strong>Dânio Filho
               </p>
 
-              <a href="https://github.com/daniofilho/caverna-online-scoring-pad">
+              <a
+                href="https://github.com/daniofilho/caverna-online-scoring-pad"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <BsGithub />
-                <strong>Github:</strong>
-                {t("common:contribute")}
+                <strong>{t("common:github-repository")}</strong>
               </a>
 
               <hr />
@@ -84,7 +89,9 @@ const TopHeader: React.FC = () => {
             </DrawerBody>
 
             <DrawerFooter>
-              <LanguagesMenu />
+              <Suspense fallback={<div />}>
+                <LanguagesMenu />
+              </Suspense>
             </DrawerFooter>
           </DrawerContent>
         </DrawerContainer>
