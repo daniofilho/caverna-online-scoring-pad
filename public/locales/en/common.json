@@ -14,5 +14,10 @@
   "new-game": "New Game",
   "yes": "Yes",
   "no": "No",
-  "ok": "Ok"
+  "ok": "Ok",
+  "conclude": "Conclude",
+  "delete-player": "Delete player",
+  "change-avatar": "Change avatar",
+  "points": "Points",
+  "point": "Points"
 }

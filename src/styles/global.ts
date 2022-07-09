@@ -116,8 +116,6 @@ export default createGlobalStyle`
     font-size: 0.8rem;
   }
 
- 
-
   input {
     @media (max-width: 991px) {
       font-size: 1rem !important;
@@ -126,6 +124,7 @@ export default createGlobalStyle`
 
   button {
     cursor: pointer;
+    border-width: 0;
   }
 
   hr {
