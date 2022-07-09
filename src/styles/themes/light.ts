@@ -11,6 +11,10 @@ const theme: DefaultTheme = {
     color: "#282a36",
     contrast: "#FFFFFF",
   },
+  highlight: {
+    color: "#cc1010",
+    contrast: "#FFFFFF",
+  },
 };
 
 export default theme;

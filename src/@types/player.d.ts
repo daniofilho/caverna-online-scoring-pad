@@ -7,3 +7,7 @@ declare interface IPlayer {
     stones: number;
   };
 }
+
+declare interface IPlayerScore extends IPlayer {
+  totalScore: number;
+}

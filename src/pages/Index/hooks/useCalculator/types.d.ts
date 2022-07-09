@@ -1,7 +1,7 @@
 import React from "react";
 
 export interface IUseCalculatorContextProps {
-  players: IPlayer[];
+  players: IPlayerScore[];
 
   startNewGame: () => void;
 

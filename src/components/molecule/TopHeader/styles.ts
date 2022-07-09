@@ -7,9 +7,6 @@ export const Container = styled.header`
   top: 0;
 
   nav {
-    max-width: 62rem;
-    margin: 0 auto;
-
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -23,9 +20,20 @@ export const Container = styled.header`
       padding: 0.5rem;
       color: ${({ theme }) => theme.primary.contrast};
 
+      width: 2rem;
+
       svg {
         width: 1.2rem;
         height: 1.2rem;
+      }
+    }
+
+    & > button:nth-last-of-type(1) {
+      svg {
+        color: ${({ theme }) =>
+          theme.name === "dark"
+            ? theme.highlight.color
+            : theme.primary.contrast};
       }
     }
 

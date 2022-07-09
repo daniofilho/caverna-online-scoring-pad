@@ -86,9 +86,27 @@ const UseCalculatorProvider: React.FC<IUseCalculatorProviderProps> = ({
 
   // * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+  const playersScore = useMemo(() => {
+    const playersScoreAux: IPlayerScore[] = players.map(
+      (player): IPlayerScore => ({
+        ...player,
+        // TODO calculate the score
+        totalScore: Math.floor(Math.random() * 100) + -30,
+      })
+    );
+
+    // Sort by score
+    playersScoreAux.sort((a, b) => a.totalScore - b.totalScore);
+    playersScoreAux.reverse();
+
+    return playersScoreAux;
+  }, [players]);
+
+  // * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
   const contextValue = useMemo(
-    () => ({ players, addNewPlayer, removePlayer, startNewGame }),
-    [players, addNewPlayer, removePlayer, startNewGame]
+    () => ({ players: playersScore, addNewPlayer, removePlayer, startNewGame }),
+    [playersScore, addNewPlayer, removePlayer, startNewGame]
   );
 
   return (
