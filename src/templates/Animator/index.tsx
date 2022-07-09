@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { Container } from "./styles";
 
 interface IAnimatorProps {
   children: React.ReactNode;
@@ -12,15 +12,15 @@ const Animator: React.FC<IAnimatorProps> = ({ children }) => {
   };
 
   return (
-    <motion.main
+    <Container
       variants={variants}
       initial="hidden"
       animate="enter"
       exit="exit"
-      transition={{ duration: 0.5, ease: 'easeInOut' }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
     >
       {children}
-    </motion.main>
+    </Container>
   );
 };
 export default Animator;

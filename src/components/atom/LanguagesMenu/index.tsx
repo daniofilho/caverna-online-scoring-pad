@@ -1,7 +1,7 @@
-import Flag from "react-world-flags";
-
 import Link from "next/link";
 import { useRouter } from "next/router";
+
+import Image from "components/atom/Image";
 
 import { Container } from "./styles";
 
@@ -12,13 +12,13 @@ const LanguangesMenu: React.FC = () => {
     <Container>
       <Link href={router.asPath} locale="en" scroll={false}>
         <a className={router.locale === "en" ? "active" : ""}>
-          <Flag code="US" />
+          <Image src="/images/flags/united-states.png" width={32} height={32} />
         </a>
       </Link>
 
       <Link href={router.asPath} locale="pt-BR" scroll={false}>
         <a className={router.locale === "pt-BR" ? "active" : ""}>
-          <Flag code="BR" />
+          <Image src="/images/flags/brazil.png" width={32} height={32} />
         </a>
       </Link>
     </Container>

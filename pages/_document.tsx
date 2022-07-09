@@ -41,19 +41,6 @@ export default class MyDocument extends Document {
     return (
       <Html lang="pt-BR">
         <Head>
-          <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-
-          <meta id="HandheldFriendly" content="True" />
-          <meta id="MobileOptimized" content="320" />
-          <meta
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
-          />
-          <meta
-            httpEquiv="Cache-Control"
-            content="no-cache, no-store, must-revalidate"
-          />
-
           <link
             rel="shortcut icon"
             type="image/png"
