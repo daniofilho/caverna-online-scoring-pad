@@ -14,5 +14,10 @@
   "new-game": "Novo Jogo",
   "yes": "Sim",
   "no": "Não",
-  "ok": "Ok"
+  "ok": "Ok",
+  "conclude": "Concluir",
+  "delete-player": "Remover jogador",
+  "change-avatar": "Alterar avatar",
+  "points": "Pontos",
+  "point": "Ponto"
 }

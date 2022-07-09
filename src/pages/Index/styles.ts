@@ -1,27 +1,9 @@
 import styled from "styled-components";
 
-export const MainContainer = styled.article`
-  flex: 1;
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-
+export const Container = styled.div`
   button {
     width: 100%;
   }
-
-  & > footer {
-    position: sticky;
-    bottom: 0;
-
-    padding: 1rem;
-  }
-`;
-
-export const Container = styled.div`
-  flex: 1;
-  padding: 1rem;
 `;
 
 export const PlayersBoard = styled.section`
@@ -42,18 +24,20 @@ export const PlayersBoard = styled.section`
 
 export const PlayerRow = styled.button.attrs({
   className: "player-row",
+  type: "button",
 })`
   background-color: transparent;
   border-width: 0;
 
   display: grid;
-  grid-template-columns: 1fr 3rem 1rem;
+  grid-template-columns: 2rem 1fr 3rem;
   align-items: center;
 
   margin-bottom: 0.5rem;
   border-bottom: 1px dashed ${({ theme }) => theme.primary.color};
 
   padding: 0.5rem;
+  text-align: start;
 
   svg {
     width: 1rem;
@@ -69,7 +53,11 @@ export const PlayerRow = styled.button.attrs({
     }
   }
 
-  p:nth-of-type(2) {
-    padding-left: 0.4rem;
+  & > svg:nth-of-type(2) {
+    margin-left: auto;
+  }
+
+  & > p:nth-of-type(2) {
+    text-align: right;
   }
 `;

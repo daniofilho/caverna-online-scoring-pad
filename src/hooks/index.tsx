@@ -1,4 +1,6 @@
 import { UseAlertsProvider } from "./useAlerts";
+import { UseCalculatorProvider } from "./useCalculator";
+import { UseRouterMiddlerwareProvider } from "./useRouterMiddleware";
 import { UseThemeProvider } from "./useTheme";
 
 interface IAppProviderProps {
@@ -6,9 +8,13 @@ interface IAppProviderProps {
 }
 
 const AppProvider: React.FC<IAppProviderProps> = ({ children }) => (
-  <UseThemeProvider>
-    <UseAlertsProvider>{children}</UseAlertsProvider>
-  </UseThemeProvider>
+  <UseRouterMiddlerwareProvider>
+    <UseThemeProvider>
+      <UseAlertsProvider>
+        <UseCalculatorProvider>{children}</UseCalculatorProvider>
+      </UseAlertsProvider>
+    </UseThemeProvider>
+  </UseRouterMiddlerwareProvider>
 );
 
 export default AppProvider;

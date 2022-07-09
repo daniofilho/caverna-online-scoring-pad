@@ -1,70 +1,55 @@
 import { GiMeeple, GiPartyPopper, GiCheckeredFlag } from "react-icons/gi";
-import { HiChevronRight } from "react-icons/hi";
+import Avatar from "react-nice-avatar";
 
 import { useTranslation } from "next-i18next";
 
 import { Button } from "@chakra-ui/react";
 
-import TopHeader from "components/molecule/TopHeader";
+import { useCalculator } from "hooks/useCalculator";
+import { useRouterMiddleware } from "hooks/useRouterMiddleware";
 
-import { UseCalculatorProvider, useCalculator } from "./hooks/useCalculator";
-import { Container, PlayersBoard, PlayerRow, MainContainer } from "./styles";
+import { Container, PlayersBoard, PlayerRow } from "./styles";
 
 const Index: React.FC = () => {
   const { t } = useTranslation();
+  const { navigateTo } = useRouterMiddleware();
 
-  const { players, addNewPlayer, startNewGame } = useCalculator();
+  const { players, addNewPlayer } = useCalculator();
 
   return (
-    <MainContainer>
-      <TopHeader />
+    <Container>
+      {players.length > 0 && (
+        <PlayersBoard>
+          <PlayerRow>
+            <GiMeeple />
 
-      <Container>
-        {players.length > 0 && (
-          <PlayersBoard>
-            <PlayerRow>
-              <GiMeeple />
+            <div />
 
-              <GiCheckeredFlag />
+            <GiCheckeredFlag />
+          </PlayerRow>
 
-              <div />
+          {players.map(({ id, name, totalScore, avatar }, index) => (
+            <PlayerRow key={id} onClick={() => navigateTo(`/player/${id}`)}>
+              <Avatar
+                {...avatar}
+                style={{ width: "1.5rem", height: "1.5rem" }}
+              />
+
+              <p>
+                <strong>{name}</strong> {index === 0 && <GiPartyPopper />}
+              </p>
+
+              <p>{totalScore}</p>
             </PlayerRow>
+          ))}
+        </PlayersBoard>
+      )}
 
-            {players.map(({ id, name, totalScore }, index) => (
-              <PlayerRow key={id} type="button">
-                <p>
-                  <strong>{name}</strong> {index === 0 && <GiPartyPopper />}
-                </p>
-
-                <p>{totalScore}</p>
-
-                <HiChevronRight />
-              </PlayerRow>
-            ))}
-          </PlayersBoard>
-        )}
-
-        <Button type="button" onClick={() => addNewPlayer()}>
-          {t("common:add-player")}
-        </Button>
-      </Container>
-
-      <footer>
-        <Button
-          type="button"
-          colorScheme="telegram"
-          onClick={() => startNewGame()}
-        >
-          {t("common:new-game")}
-        </Button>
-      </footer>
-    </MainContainer>
+      <Button type="button" onClick={() => addNewPlayer()}>
+        {t("common:add-player")}
+      </Button>
+    </Container>
   );
 };
 
-const IndexWrapper: React.FC = () => (
-  <UseCalculatorProvider>
-    <Index />
-  </UseCalculatorProvider>
-);
-export default IndexWrapper;
+export default Index;

@@ -4,21 +4,28 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useState,
+  useReducer,
 } from "react";
 import { useLocalStorage } from "react-use";
 
 import { useTranslation } from "next-i18next";
 
+import mapReducerActions from "utils/mapReducerActions";
+
 import { useAlerts } from "hooks/useAlerts";
+import { useRouterMiddleware } from "hooks/useRouterMiddleware";
 
 import config from "config/general";
 
+import * as CalculatorReducer from "./reducer";
 import createNewPlayer from "./services/createNewPlayer";
 import getInitialData from "./services/getInitialData";
+import getPlayerFinalScore from "./services/getPlayerFinalScore";
 import {
   IUseCalculatorProviderProps,
   IUseCalculatorContextProps,
+  ICalculatorReducerActionsProps,
+  ICalculatorReducerProps,
 } from "./types";
 
 const useCalculatorContext = createContext<IUseCalculatorContextProps>(
@@ -28,45 +35,54 @@ const useCalculatorContext = createContext<IUseCalculatorContextProps>(
 const UseCalculatorProvider: React.FC<IUseCalculatorProviderProps> = ({
   children,
 }) => {
+  const { navigateTo } = useRouterMiddleware();
   const { confirmMessage } = useAlerts();
   const { t } = useTranslation();
 
+  const [storeReducer] = useLocalStorage(`${config.localStorageKey}-reducer`);
+
   // * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  const [storePlayers, setStorePlayers, removeStorePlayers] = useLocalStorage(
-    `${config.localStorageKey}-players`
+  // # Reducer
+  const [state, dispatch] = useReducer(CalculatorReducer.reducer, []);
+  const actions: ICalculatorReducerActionsProps = useMemo(
+    () => mapReducerActions(CalculatorReducer.actions, dispatch),
+    []
+  );
+  const reducer: ICalculatorReducerProps = useMemo(
+    () => ({ state, actions }),
+    [actions, state]
   );
 
-  const [players, setPlayers] = useState<IPlayer[]>([]);
+  // * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   const addNewPlayer = useCallback(() => {
-    setPlayers((oldState) => [...oldState, createNewPlayer()]);
-  }, []);
+    const player = createNewPlayer();
+    reducer.actions.addPlayer({
+      player,
+    });
+
+    navigateTo(`/player/${player.id}`);
+  }, [reducer.actions, navigateTo]);
 
   const removePlayer = useCallback(
     (playerId: string) =>
       confirmMessage({
         message: t("common:sure-delete-player"),
         onYesCallback: () => {
-          setPlayers((oldState) =>
-            oldState.filter((player) => player.id !== playerId)
-          );
+          reducer.actions.removePlayer({ playerId });
+          navigateTo(`/`);
         },
       }),
-    [confirmMessage, t]
+    [confirmMessage, navigateTo, reducer.actions, t]
   );
-
-  // Keep store updated
-  useEffect(() => {
-    setStorePlayers(JSON.stringify(players));
-  }, [players, setStorePlayers]);
 
   // # If has data in storage, update state
   // Using useEffect to ensure that localStorage will be accessed only on client side
   // Also makes sure to load only once
   useEffect(() => {
-    const initialData = getInitialData(storePlayers);
-    setPlayers(initialData.players);
+    const initialData = getInitialData(storeReducer);
+    reducer.actions.setState(initialData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -77,21 +93,19 @@ const UseCalculatorProvider: React.FC<IUseCalculatorProviderProps> = ({
       confirmMessage({
         message: t("common:sure-new-game"),
         onYesCallback: () => {
-          setPlayers([]);
-          removeStorePlayers();
+          reducer.actions.setState([]);
         },
       }),
-    [confirmMessage, removeStorePlayers, t]
+    [confirmMessage, reducer.actions, t]
   );
 
   // * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   const playersScore = useMemo(() => {
-    const playersScoreAux: IPlayerScore[] = players.map(
+    const playersScoreAux: IPlayerScore[] = reducer.state.map(
       (player): IPlayerScore => ({
         ...player,
-        // TODO calculate the score
-        totalScore: Math.floor(Math.random() * 100) + -30,
+        totalScore: getPlayerFinalScore(player),
       })
     );
 
@@ -100,13 +114,48 @@ const UseCalculatorProvider: React.FC<IUseCalculatorProviderProps> = ({
     playersScoreAux.reverse();
 
     return playersScoreAux;
-  }, [players]);
+  }, [reducer.state]);
+
+  // * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  const getPlayer = useCallback(
+    (playerId: string) => playersScore.find((player) => player.id === playerId),
+    [playersScore]
+  );
+
+  const getPlayerResource = useCallback(
+    (playerId: string, resource: IAvailableResource) => {
+      const player = getPlayer(playerId);
+      return player?.resources[resource] || 0;
+    },
+    [getPlayer]
+  );
 
   // * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   const contextValue = useMemo(
-    () => ({ players: playersScore, addNewPlayer, removePlayer, startNewGame }),
-    [playersScore, addNewPlayer, removePlayer, startNewGame]
+    () => ({
+      ...reducer.actions,
+
+      players: playersScore,
+
+      addNewPlayer,
+      removePlayer,
+
+      startNewGame,
+
+      getPlayer,
+      getPlayerResource,
+    }),
+    [
+      playersScore,
+      addNewPlayer,
+      removePlayer,
+      startNewGame,
+      getPlayer,
+      getPlayerResource,
+      reducer.actions,
+    ]
   );
 
   return (

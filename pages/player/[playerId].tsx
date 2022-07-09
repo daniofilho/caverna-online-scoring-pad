@@ -4,8 +4,8 @@ import { NextSeo } from "next-seo";
 
 import Template from "templates/default";
 
-import PageIndex from "pages/Index";
-import PageFooter from "pages/Index/Footer";
+import PageIndex from "pages/Player";
+import PageFooter from "pages/Player/Footer";
 
 import i18nfIles from "config/i18nf-iles";
 import seo from "config/seo";
