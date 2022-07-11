@@ -1,6 +1,6 @@
 {
   "name": "caverna-online-scoring-pad",
-  "version": "1.0.0",
+  "version": "0.9.beta",
   "private": true,
   "scripts": {
     "dev": "next -p 3001",
