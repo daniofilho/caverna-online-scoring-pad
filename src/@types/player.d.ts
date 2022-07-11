@@ -28,8 +28,9 @@ declare global {
       stone: number;
       ore: number;
       armedDwarf: number;
-      goldConstruction: number;
     };
+
+    constructions: IConstruction[];
   }
 
   interface IPlayerScore extends IPlayer {

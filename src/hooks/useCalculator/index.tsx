@@ -9,6 +9,7 @@ import {
 import { useLocalStorage } from "react-use";
 
 import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 
 import mapReducerActions from "utils/mapReducerActions";
 
@@ -35,6 +36,7 @@ const useCalculatorContext = createContext<IUseCalculatorContextProps>(
 const UseCalculatorProvider: React.FC<IUseCalculatorProviderProps> = ({
   children,
 }) => {
+  const router = useRouter();
   const { navigateTo } = useRouterMiddleware();
   const { confirmMessage } = useAlerts();
   const { t } = useTranslation();
@@ -118,17 +120,12 @@ const UseCalculatorProvider: React.FC<IUseCalculatorProviderProps> = ({
 
   // * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  const getPlayer = useCallback(
-    (playerId: string) => playersScore.find((player) => player.id === playerId),
-    [playersScore]
-  );
-
-  const getPlayerResource = useCallback(
-    (playerId: string, resource: IAvailableResource) => {
-      const player = getPlayer(playerId);
-      return player?.resources[resource] || 0;
-    },
-    [getPlayer]
+  const selectedPlayer = useMemo(
+    () =>
+      playersScore.find(
+        (player) => player.id === String(router.query.playerId)
+      ),
+    [playersScore, router.query.playerId]
   );
 
   // * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -144,17 +141,15 @@ const UseCalculatorProvider: React.FC<IUseCalculatorProviderProps> = ({
 
       startNewGame,
 
-      getPlayer,
-      getPlayerResource,
+      selectedPlayer,
     }),
     [
+      reducer.actions,
       playersScore,
       addNewPlayer,
       removePlayer,
       startNewGame,
-      getPlayer,
-      getPlayerResource,
-      reducer.actions,
+      selectedPlayer,
     ]
   );
 

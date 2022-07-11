@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { GiCheckeredFlag, GiInfinity } from "react-icons/gi";
+
+import { useTranslation } from "next-i18next";
 
 import {
   Slider,
@@ -16,35 +18,70 @@ import Image from "components/atom/Image";
 
 import { Container } from "./styles";
 
-const Resources: React.FC<IPlayerScore> = ({ id: playerId }) => {
-  const { updatePlayerResource, getPlayerResource } = useCalculator();
+const Resources: React.FC = () => {
+  const { t } = useTranslation();
+  const { updatePlayerResource, selectedPlayer } = useCalculator();
+
+  const canShowResource = useCallback(
+    (resource: IResource) => {
+      if (!resource.showWhenHasConstructionId) return true;
+
+      let canShow = false;
+
+      resource.showWhenHasConstructionId.forEach((resourceId) => {
+        const playerHasConstruction = selectedPlayer?.constructions.find(
+          (o) => o.id === resourceId
+        );
+
+        if (playerHasConstruction) canShow = true;
+      });
+
+      return canShow;
+    },
+    [selectedPlayer?.constructions]
+  );
+
+  if (!selectedPlayer) return <></>;
+
+  const { id: playerId } = selectedPlayer;
 
   return (
     <Container>
       <div>
-        <div />
-        <div />
-        <GiInfinity />
-        <GiCheckeredFlag />
+        <section>
+          <div />
+          <div />
+          <GiInfinity />
+          <GiCheckeredFlag />
+        </section>
       </div>
 
-      {resources.map(
-        ({ id, points, maxQuantity, minQuantity, type }, index) => {
-          const playerResourceQuantity = getPlayerResource(playerId, id);
+      {resources.map((resource, index) => {
+        const { id, points, maxQuantity, minQuantity, type } = resource;
+        const playerResourceQuantity = selectedPlayer.resources[id];
 
-          return (
-            <div
-              key={id}
-              className={`${
-                type !== resources[index + 1]?.type ? "last" : ""
-              } `}
-            >
-              <Image
-                src={`/images/resources/${id}.png`}
-                alt={id}
-                width={40}
-                height={40}
-              />
+        const canShow = canShowResource(resource);
+
+        if (!canShow) return <React.Fragment key={id} />;
+
+        return (
+          <div
+            key={id}
+            className={`${type !== resources[index + 1]?.type ? "last" : ""} `}
+          >
+            <header>
+              <span>{t(`resources:${id}`)}</span>
+            </header>
+
+            <section>
+              <div>
+                <Image
+                  src={`/images/resources/${id}.png`}
+                  alt={id}
+                  width={40}
+                  height={40}
+                />
+              </div>
 
               <Slider
                 value={playerResourceQuantity}
@@ -68,10 +105,10 @@ const Resources: React.FC<IPlayerScore> = ({ id: playerId }) => {
               <p>{playerResourceQuantity}</p>
 
               <p>{playerResourceQuantity * points}</p>
-            </div>
-          );
-        }
-      )}
+            </section>
+          </div>
+        );
+      })}
     </Container>
   );
 };

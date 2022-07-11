@@ -9,13 +9,13 @@ import { useCalculator } from "hooks/useCalculator";
 
 import { Container, AvatarButton } from "./styles";
 
-const BasicInformation: React.FC<IPlayerScore> = ({
-  id: playerId,
-  name,
-  avatar,
-}) => {
+const BasicInformation: React.FC = () => {
   const { t } = useTranslation();
-  const { removePlayer, updatePlayerProp } = useCalculator();
+  const { removePlayer, updatePlayerProp, selectedPlayer } = useCalculator();
+
+  if (!selectedPlayer) return <></>;
+
+  const { id: playerId, name, avatar } = selectedPlayer;
 
   return (
     <>
@@ -30,7 +30,7 @@ const BasicInformation: React.FC<IPlayerScore> = ({
             })
           }
         >
-          <Avatar {...avatar} style={{ width: "2.5rem", height: "2.5rem" }} />
+          <Avatar {...avatar} style={{ width: "3rem", height: "3rem" }} />
         </AvatarButton>
 
         <Input

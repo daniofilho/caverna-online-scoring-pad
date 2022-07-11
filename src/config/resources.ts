@@ -5,6 +5,7 @@ const resources: IResource[] = [
     points: 0,
     minQuantity: 0,
     maxQuantity: 30,
+    showWhenHasConstructionId: ["stone-storage"],
   },
   {
     id: "ore",
@@ -12,7 +13,9 @@ const resources: IResource[] = [
     points: 0,
     minQuantity: 0,
     maxQuantity: 30,
+    showWhenHasConstructionId: ["ore-storage"],
   },
+  // * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   {
     id: "dog",
     type: "animal",
@@ -48,6 +51,7 @@ const resources: IResource[] = [
     minQuantity: 0,
     maxQuantity: 30,
   },
+  // * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   {
     id: "grain",
     type: "food",
@@ -83,6 +87,7 @@ const resources: IResource[] = [
     minQuantity: 0,
     maxQuantity: 20,
   },
+  // * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   {
     id: "smallPasture",
     type: "land",
@@ -131,7 +136,9 @@ const resources: IResource[] = [
     points: 4,
     minQuantity: 0,
     maxQuantity: 16,
+    showWhenHasConstructionId: ["state-parlor"],
   },
+  // * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   {
     id: "dwarf",
     type: "family",
@@ -145,6 +152,11 @@ const resources: IResource[] = [
     points: 1,
     minQuantity: 0,
     maxQuantity: 6,
+    showWhenHasConstructionId: [
+      "supplies-storage",
+      "weapon-storage",
+      "prayer-chamber",
+    ],
   },
 ];
 

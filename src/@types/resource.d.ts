@@ -33,5 +33,5 @@ declare interface IResource {
   points: number;
   minQuantity: number;
   maxQuantity: number;
-  // showOnly
+  showWhenHasConstructionId?: string[];
 }

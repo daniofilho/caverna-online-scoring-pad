@@ -7,6 +7,7 @@ import {
   AddPlayerProps,
   RemovePlayerProps,
   IUpdatePlayerPropProps,
+  ITogglePlayerConstructionProps,
 } from "./types";
 
 const actions: any = {
@@ -52,15 +53,46 @@ const actions: any = {
     state: ICalculatorReducerStateProps,
     { playerId, field, value }: IUpdatePlayerPropProps
   ): ICalculatorReducerStateProps => {
-    const player = state.findIndex((player) => player.id === playerId);
+    const playerIndex = state.findIndex((player) => player.id === playerId);
 
-    state[player] = {
-      ...state[player],
-      resources: {
-        ...state[player].resources,
-        [field]: value,
-      },
-    };
+    if (playerIndex !== -1) {
+      state[playerIndex] = {
+        ...state[playerIndex],
+        resources: {
+          ...state[playerIndex].resources,
+          [field]: value,
+        },
+      };
+    }
+
+    return state;
+  },
+
+  togglePlayerConstruction: (
+    state: ICalculatorReducerStateProps,
+    { playerId, construction }: ITogglePlayerConstructionProps
+  ): ICalculatorReducerStateProps => {
+    const playerIndex = state.findIndex((player) => player.id === playerId);
+
+    if (playerIndex !== -1) {
+      const playerHasConstruction = state[playerIndex].constructions.find(
+        (o) => o.id === construction.id
+      );
+
+      if (playerHasConstruction) {
+        state[playerIndex] = {
+          ...state[playerIndex],
+          constructions: state[playerIndex].constructions.filter(
+            (o) => o.id !== construction.id
+          ),
+        };
+      } else {
+        state[playerIndex] = {
+          ...state[playerIndex],
+          constructions: [...state[playerIndex].constructions, construction],
+        };
+      }
+    }
 
     return state;
   },

@@ -1,1 +1,23 @@
-{}
+{
+  "dog": "Cachorro",
+  "sheep": "Ovelha",
+  "donkey": "Burro",
+  "boar": "Javali",
+  "cattle": "Vaca",
+  "grain": "Cereal",
+  "vegetable": "Legume",
+  "ruby": "Rubi",
+  "gold": "Ouro",
+  "beggingMarker": "Marcador de Mendicância",
+  "smallPasture": "Pasto Pequeno",
+  "largePasture": "Pasto Largo",
+  "oreMine": "Mina de Minério",
+  "rubyMine": "Mina de Rubi",
+  "unusedSpace": "Espaço não usado",
+  "dwarf": "Anão",
+  "dwelling": "Moradia",
+  "adjacentDwelling": "Moradia Adjacente",
+  "stone": "Pedra",
+  "ore": "Minério",
+  "armedDwarf": "Anão Armado"
+}

@@ -1,1 +1,23 @@
-{}
+{
+  "dog": "Dog",
+  "sheep": "Sheep",
+  "donkey": "Donkey",
+  "boar": "Boar",
+  "cattle": "Cattle",
+  "grain": "Grain",
+  "vegetable": "Vegetable",
+  "ruby": "Ruby",
+  "gold": "Gold",
+  "beggingMarker": "Begging Marker",
+  "smallPasture": "Small Pasture",
+  "largePasture": "Large Pasture",
+  "oreMine": "Ore Mine",
+  "rubyMine": "Ruby Mine",
+  "unusedSpace": "Unused Space",
+  "dwarf": "Dwarf",
+  "dwelling": "Dwelling",
+  "adjacentDwelling": "Adjacent Dwelling",
+  "stone": "Stone",
+  "ore": "Ore",
+  "armedDwarf": "Armed Dwarf"
+}

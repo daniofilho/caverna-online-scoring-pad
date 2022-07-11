@@ -1,32 +1,26 @@
-import { useMemo } from "react";
-
-import { useRouter } from "next/router";
-
 import { useCalculator } from "hooks/useCalculator";
 
 import Loader from "components/atom/Loader";
 
+import Constructions from "./Constructions";
 import Information from "./Information";
 import Resources from "./Resources";
 import { Container } from "./styles";
 
 const PlayerPage: React.FC = () => {
-  const router = useRouter();
+  const { selectedPlayer } = useCalculator();
 
-  const { getPlayer } = useCalculator();
-
-  const player = useMemo(
-    () => getPlayer(String(router.query.playerId)),
-    [getPlayer, router]
-  );
-
-  if (!player) return <Loader />;
+  if (!selectedPlayer) return <Loader />;
 
   return (
     <Container>
-      <Information {...player} />
+      <Information />
 
-      <Resources {...player} />
+      <Constructions color="orange" />
+      <Constructions color="green" />
+      <Constructions color="yellow" />
+
+      <Resources />
     </Container>
   );
 };

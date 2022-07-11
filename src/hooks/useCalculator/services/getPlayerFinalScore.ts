@@ -1,3 +1,4 @@
+import constructions from "config/constructions";
 import resources from "config/resources";
 
 export default (player: IPlayer): number => {
@@ -8,22 +9,29 @@ export default (player: IPlayer): number => {
     0
   );
 
-  // Green Constructions
-  // TODO
-  const totalGreenConstructions = 0;
+  // Constructions
+  const totalConstructions = player.constructions.reduce((total, { id }) => {
+    const construction = constructions.find((o) => o.id === id);
+    if (!construction) return total;
 
-  // Orange Constructions
-  // TODO
-  const totalOrangeConstructions = 0;
+    return total + construction.score(player);
+  }, 0);
 
-  // Yellow Constructions
-  // TODO
-  const totalYellowConstructions = 0;
+  let score = totalResourcesScore + totalConstructions;
 
-  return (
-    totalResourcesScore +
-    totalGreenConstructions +
-    totalOrangeConstructions +
-    totalYellowConstructions
+  // Remove up to 7 negative points if have Writing Chamber
+  const hasWritingChamber = player.constructions.find(
+    (o) => o.id === "writing-chamber"
   );
+  if (hasWritingChamber) {
+    if (score < 0) {
+      if (score < -7) {
+        score -= 7;
+      } else {
+        score = 0;
+      }
+    }
+  }
+
+  return score;
 };
