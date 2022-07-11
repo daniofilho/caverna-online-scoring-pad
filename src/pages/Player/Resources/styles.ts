@@ -8,15 +8,21 @@ export const Container = styled.div`
   }
 
   & > div {
-    display: grid;
-    grid-template-columns: 2rem 1fr 2rem 2rem;
-    align-items: center;
-    gap: 1rem;
+    & > section {
+      display: grid;
+      grid-template-columns: 2rem 1fr 2rem 2rem;
+      align-items: center;
+      gap: 1rem;
 
-    padding: 0;
+      padding: 0;
+    }
 
     p {
       margin: 0;
+    }
+
+    p:nth-last-of-type(1) {
+      font-weight: bold;
     }
   }
 
@@ -28,5 +34,7 @@ export const Container = styled.div`
 
   .chakra-slider__thumb {
     border: 1px solid #efefef;
+    width: 1.6rem;
+    height: 1.6rem;
   }
 `;

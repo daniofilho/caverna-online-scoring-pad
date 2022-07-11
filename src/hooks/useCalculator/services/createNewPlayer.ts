@@ -29,6 +29,6 @@ export default (): IPlayer => ({
     stone: 0,
     ore: 0,
     armedDwarf: 0,
-    goldConstruction: 0,
   },
+  constructions: [],
 });

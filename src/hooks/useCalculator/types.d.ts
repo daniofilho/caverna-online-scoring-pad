@@ -17,6 +17,11 @@ interface IUpdatePlayerResourceProps extends IDefaultPlayerParams {
   field: IAvailableResource;
 }
 
+interface ITogglePlayerConstructionProps {
+  playerId: string;
+  construction: IConstruction;
+}
+
 export type AddPlayerProps = {
   player: IPlayer;
 };
@@ -31,6 +36,7 @@ export interface ICalculatorReducerActionsProps {
   removePlayer: (data: RemovePlayerProps) => void;
   updatePlayerProp: (data: IUpdatePlayerPropProps) => void;
   updatePlayerResource: (data: IUpdatePlayerResourceProps) => void;
+  togglePlayerConstruction: (data: ITogglePlayerConstructionProps) => void;
 }
 
 // * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -45,14 +51,12 @@ export interface ICalculatorReducerProps {
 export interface IUseCalculatorContextProps
   extends ICalculatorReducerActionsProps {
   players: IPlayerScore[];
+  selectedPlayer: IPlayerScore | undefined;
 
   startNewGame: () => void;
 
   addNewPlayer: () => void;
   removePlayer: (playerId: string) => void;
-
-  getPlayer: (playerId: string) => IPlayerScore | undefined;
-  getPlayerResource: (playerId: string, resource: IAvailableResource) => number;
 }
 
 export interface IUseCalculatorProviderProps {

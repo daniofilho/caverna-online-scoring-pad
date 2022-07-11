@@ -7,7 +7,7 @@ import Template from "templates/default";
 import PageIndex from "pages/Index";
 import PageFooter from "pages/Index/Footer";
 
-import i18nfIles from "config/i18nf-iles";
+import i18nFiles from "config/i18n-files";
 import seo from "config/seo";
 
 const MyPageIndex: React.FC = () => (
@@ -24,6 +24,6 @@ export default MyPageIndex;
 
 export const getServerSideProps: GetServerSideProps = async (context) => ({
   props: {
-    ...(await serverSideTranslations(context.locale || "ptBR", i18nfIles)),
+    ...(await serverSideTranslations(context.locale || "ptBR", i18nFiles)),
   },
 });

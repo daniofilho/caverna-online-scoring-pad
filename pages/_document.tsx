@@ -1,3 +1,4 @@
+/* eslint-disable react/no-invalid-html-attribute */
 import Document, {
   DocumentContext,
   Head,
@@ -90,6 +91,7 @@ export default class MyDocument extends Document {
             sizes="16x16"
             href="/pwa/favicon-16x16.png"
           />
+
           <link rel="manifest" href="/pwa/manifest.json" />
           <meta name="twitter:card" content="summary" />
           <meta name="twitter:url" content={process.env.NEXT_PUBLIC_SITE_URL} />
@@ -108,13 +110,43 @@ export default class MyDocument extends Document {
             property="og:image"
             content={`${process.env.NEXT_PUBLIC_SITE_URL}/pwa/apple-touch-icon.png`}
           />
-          <link href="/pwa/apple_splash_2048.png" sizes="2048x2732" />
-          <link href="/pwa/apple_splash_1668.png" sizes="1668x2224" />
-          <link href="/pwa/apple_splash_1536.png" sizes="1536x2048" />
-          <link href="/pwa/apple_splash_1125.png" sizes="1125x2436" />
-          <link href="/pwa/apple_splash_1242.png" sizes="1242x2208" />
-          <link href="/pwa/apple_splash_750.png" sizes="750x1334" />
-          <link href="/pwa/apple_splash_640.png" sizes="640x1136" />
+
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <link
+            href="/pwa/apple_splash_2048.png"
+            sizes="2048x2732"
+            rel="apple-touch-startup-image"
+          />
+          <link
+            href="/pwa/apple_splash_1668.png"
+            sizes="1668x2224"
+            rel="apple-touch-startup-image"
+          />
+          <link
+            href="/pwa/apple_splash_1536.png"
+            sizes="1536x2048"
+            rel="apple-touch-startup-image"
+          />
+          <link
+            href="/pwa/apple_splash_1125.png"
+            sizes="1125x2436"
+            rel="apple-touch-startup-image"
+          />
+          <link
+            href="/pwa/apple_splash_1242.png"
+            sizes="1242x2208"
+            rel="apple-touch-startup-image"
+          />
+          <link
+            href="/pwa/apple_splash_750.png"
+            sizes="750x1334"
+            rel="apple-touch-startup-image"
+          />
+          <link
+            href="/pwa/apple_splash_640.png"
+            sizes="640x1136"
+            rel="apple-touch-startup-image"
+          />
 
           <link
             href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"

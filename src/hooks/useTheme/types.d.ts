@@ -16,5 +16,9 @@ declare module "styled-components" {
     primary: IColorType;
     background: IColorType;
     highlight: IColorType;
+
+    orange: string;
+    yellow: string;
+    green: string;
   }
 }
