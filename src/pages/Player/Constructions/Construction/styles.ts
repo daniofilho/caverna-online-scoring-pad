@@ -26,15 +26,21 @@ export const Container = styled.button.attrs({
   & > header {
     width: 100%;
     background-color: ${({ theme, color }) => theme[color]};
-    padding: 0.5rem;
+    padding: 0.1rem;
 
-    height: 2rem;
+    height: 2.5rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 
     p {
       margin: 0;
       color: ${({ theme }) => theme.primary.color};
 
       font-size: 0.8rem;
+      line-height: 1rem;
       font-weight: bold;
     }
   }
