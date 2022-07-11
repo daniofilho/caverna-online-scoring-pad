@@ -12,11 +12,11 @@ const seo = (): DefaultSeoProps => {
     openGraph: {
       type: "website",
       locale: "pt_BR",
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/images/meta-thumb.png`,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/images/meta-thumb.jpg`,
       site_name: title,
       images: [
         {
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}/images/meta-thumb.png`,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}/images/meta-thumb.jpg`,
           width: 124,
           height: 86,
           alt: title,
