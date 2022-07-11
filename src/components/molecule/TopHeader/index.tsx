@@ -19,6 +19,7 @@ import { useTheme } from "hooks/useTheme";
 
 import LanguagesMenu from "components/atom/LanguagesMenu";
 
+import version from "../../../../version";
 import { Container, DrawerContainer } from "./styles";
 
 const TopHeader: React.FC = () => {
@@ -35,8 +36,6 @@ const TopHeader: React.FC = () => {
             <GiHamburgerMenu />
           </button>
 
-          <h1>{t("common:site-title")}</h1>
-
           <button type="button" onClick={() => toggleTheme()}>
             {theme.name === "dark" ? <MdOutlineWbSunny /> : <MdNightlight />}
           </button>
@@ -52,6 +51,10 @@ const TopHeader: React.FC = () => {
             <DrawerBody>
               <p>
                 <strong>{t("common:about-the-project")}</strong>
+              </p>
+
+              <p>
+                <em>{version}</em>
               </p>
 
               <p>{t("common:disclaimer")}</p>
