@@ -121,7 +121,7 @@ const resources: IResource[] = [
     type: "land",
     points: -1,
     minQuantity: 0,
-    maxQuantity: 21,
+    maxQuantity: 22,
   },
   {
     id: "dwelling",
