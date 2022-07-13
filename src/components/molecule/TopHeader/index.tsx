@@ -1,9 +1,10 @@
 import { Suspense } from "react";
-import { BsGithub, BsPaypal } from "react-icons/bs";
+import { BsGithub, BsPaypal, BsArrowLeft } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdOutlineWbSunny, MdNightlight, MdQrCode } from "react-icons/md";
 
 import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 
 import {
   Drawer,
@@ -23,6 +24,8 @@ import version from "../../../../version";
 import { Container, DrawerContainer } from "./styles";
 
 const TopHeader: React.FC = () => {
+  const router = useRouter();
+
   const { t } = useTranslation();
   const { theme, toggleTheme } = useTheme();
 
@@ -32,9 +35,15 @@ const TopHeader: React.FC = () => {
     <>
       <Container>
         <nav>
-          <button type="button" onClick={onOpen}>
-            <GiHamburgerMenu />
-          </button>
+          {router.asPath === "/" ? (
+            <button type="button" onClick={onOpen}>
+              <GiHamburgerMenu />
+            </button>
+          ) : (
+            <button type="button" onClick={() => router.push("/")}>
+              <BsArrowLeft />
+            </button>
+          )}
 
           <button type="button" onClick={() => toggleTheme()}>
             {theme.name === "dark" ? <MdOutlineWbSunny /> : <MdNightlight />}

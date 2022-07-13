@@ -14,9 +14,15 @@
   "yes": "Sim",
   "no": "Não",
   "ok": "Ok",
-  "conclude": "Concluir",
   "delete-player": "Remover jogador",
   "change-avatar": "Alterar avatar",
   "points": "Pontos",
-  "point": "Ponto"
+  "point": "Ponto",
+  "score-so-far": "Pontuação até aqui: ",
+  "missing-animal": "Animal faltando:",
+  "ignoring-up-to-7-negatives": "Ignorando até 7 pontos negativos por conta da Câmara da Escrita",
+  "go-back": "Voltar",
+  "see-log": "Detalhes da Pontuação",
+  "score-calculation-log": "Log de Cálculo da pontuação",
+  "final-score": "Pontuação final"
 }

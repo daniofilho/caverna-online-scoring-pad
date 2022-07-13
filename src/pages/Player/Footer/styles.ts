@@ -11,7 +11,6 @@ export const Container = styled.div`
   gap: 1rem;
 
   p {
-    flex: 1;
     font-weight: bold;
     color: ${({ theme }) => theme.highlight.color};
     text-align: center;
@@ -20,5 +19,24 @@ export const Container = styled.div`
   button {
     flex: 1;
     width: 100%;
+  }
+`;
+
+export const LogContainer = styled.div`
+  padding-bottom: 1.5rem;
+
+  p {
+    margin-bottom: 0.2rem;
+    font-size: 0.9rem;
+    border-bottom: 1px dashed var(--chakra-colors-chakra-border-color);
+
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  hr {
+    opacity: 0;
   }
 `;
