@@ -104,7 +104,7 @@ const Resources: React.FC = () => {
 
               <p>{playerResourceQuantity}</p>
 
-              <p>{playerResourceQuantity * points}</p>
+              <p>{Math.ceil(playerResourceQuantity * points)}</p>
             </section>
           </div>
         );
