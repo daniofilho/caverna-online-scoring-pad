@@ -14,9 +14,15 @@
   "yes": "Yes",
   "no": "No",
   "ok": "Ok",
-  "conclude": "Conclude",
   "delete-player": "Delete player",
   "change-avatar": "Change avatar",
   "points": "Points",
-  "point": "Points"
+  "point": "Points",
+  "score-so-far": "Score so far:",
+  "missing-animal": "Animal missing:",
+  "ignoring-up-to-7-negatives": "Ignoring up to 7 points because of Writing Chamber",
+  "go-back": "Go back",
+  "see-log": "Score Details",
+  "score-calculation-log": "Score Calculation Log",
+  "final-score": "Final Score"
 }

@@ -105,10 +105,15 @@ const UseCalculatorProvider: React.FC<IUseCalculatorProviderProps> = ({
 
   const playersScore = useMemo(() => {
     const playersScoreAux: IPlayerScore[] = reducer.state.map(
-      (player): IPlayerScore => ({
-        ...player,
-        totalScore: getPlayerFinalScore(player),
-      })
+      (player): IPlayerScore => {
+        const score = getPlayerFinalScore(player);
+
+        return {
+          ...player,
+          totalScore: score.finalScore,
+          scoreLog: score.log,
+        };
+      }
     );
 
     // Sort by score

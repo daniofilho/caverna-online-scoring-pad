@@ -35,5 +35,6 @@ declare global {
 
   interface IPlayerScore extends IPlayer {
     totalScore: number;
+    scoreLog: string;
   }
 }

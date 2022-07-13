@@ -2,16 +2,26 @@ import { useMemo } from "react";
 
 import { useTranslation } from "next-i18next";
 
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  ModalHeader,
+} from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
+import templateLiteralsToHTML from "utils/templateLiteralToHTML";
 
 import { useCalculator } from "hooks/useCalculator";
-import { useRouterMiddleware } from "hooks/useRouterMiddleware";
 
-import { Container } from "./styles";
+import { Container, LogContainer } from "./styles";
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
-  const { navigateTo } = useRouterMiddleware();
+
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   const { selectedPlayer } = useCalculator();
 
@@ -24,18 +34,35 @@ const Footer: React.FC = () => {
       : `${score} ${t("common:points")}`;
   }, [selectedPlayer, t]);
 
-  return (
-    <Container>
-      {selectedPlayer && <p>{pointsLabel}</p>}
+  if (!selectedPlayer) return <></>;
 
-      <Button
-        type="button"
-        colorScheme="telegram"
-        onClick={() => navigateTo("/")}
-      >
-        {t("common:conclude")}
-      </Button>
-    </Container>
+  return (
+    <>
+      <Container>
+        {selectedPlayer && <p>{pointsLabel}</p>}
+
+        <Button type="button" colorScheme="gray" onClick={() => onOpen()}>
+          {t("common:see-log")}
+        </Button>
+      </Container>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+
+          <ModalHeader />
+
+          <ModalBody>
+            <h2>{t("common:score-calculation-log")}</h2>
+
+            <LogContainer>
+              {templateLiteralsToHTML(selectedPlayer.scoreLog)}
+            </LogContainer>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 export default Footer;
