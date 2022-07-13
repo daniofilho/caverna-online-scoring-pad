@@ -18,6 +18,12 @@ export default (player: IPlayer): number => {
   }, 0);
 
   let score = totalResourcesScore + totalConstructions;
+  
+  // Remove points because of animals
+  if (player.resources.sheep === 0) score -= 2;
+  if (player.resources.boar === 0) score -= 2;
+  if (player.resources.cattle === 0) score -= 2;
+  if (player.resources.donkey === 0) score -= 2;
 
   // Remove up to 7 negative points if have Writing Chamber
   const hasWritingChamber = player.constructions.find(
