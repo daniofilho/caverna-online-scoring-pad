@@ -383,7 +383,8 @@ const constructions: IConstruction[] = [
       const totalYellowConstructions = player.constructions.filter(
         (o) => o.color === "yellow"
       );
-      return Math.floor(totalYellowConstructions.length / 2);
+
+      return Math.floor(totalYellowConstructions.length * 2);
     },
     scoreLabel: "*",
   },

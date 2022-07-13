@@ -133,7 +133,7 @@ const resources: IResource[] = [
   {
     id: "adjacentDwelling",
     type: "land",
-    points: 4,
+    points: 0,
     minQuantity: 0,
     maxQuantity: 16,
     showWhenHasConstructionId: ["state-parlor"],
