@@ -124,7 +124,7 @@ export default (player: IPlayer): IFinalScoreSummary => {
 
   // # Constructions
   const scoreForConstructions = player.constructions.reduce((total, { id }) => {
-    const construction = constructions.find((o) => o.id === id);
+    const construction = constructions().find((o) => o.id === id);
     if (!construction) return total;
 
     const constructionScore = construction.score(player);

@@ -12,4 +12,5 @@ declare interface IConstruction {
   };
   score: (player?: IPlayer) => number;
   scoreLabel: string;
+  label: string;
 }
