@@ -46,6 +46,34 @@ export default (player: IPlayer): IFinalScoreSummary => {
 
   log += "<hr />";
 
+  // Remove points because of animals
+  if (player.resources.sheep === 0) {
+    log += `<p>${i18n?.t("common:missing-animal")} ${i18n?.t(
+      `resources:sheep`
+    )} <strong>-2</strong></p>`;
+    score -= 2;
+  }
+  if (player.resources.boar === 0) {
+    log += `<p>${i18n?.t("common:missing-animal")} ${i18n?.t(
+      `resources:boar`
+    )} <strong>-2</strong></p>`;
+    score -= 2;
+  }
+  if (player.resources.cattle === 0) {
+    log += `<p>${i18n?.t("common:missing-animal")} ${i18n?.t(
+      `resources:cattle`
+    )} <strong>-2</strong></p>`;
+    score -= 2;
+  }
+  if (player.resources.donkey === 0) {
+    log += `<p>${i18n?.t("common:missing-animal")} ${i18n?.t(
+      `resources:donkey`
+    )} <strong>-2</strong></p>`;
+    score -= 2;
+  }
+
+  log += "<hr />";
+
   // # Food
   const foodResources = resources.filter((o) => o.type === "food");
   const scoreForFood = calculateResourceScore(foodResources);
@@ -96,67 +124,28 @@ export default (player: IPlayer): IFinalScoreSummary => {
 
   // # Constructions
   const scoreForConstructions = player.constructions.reduce((total, { id }) => {
-    const construction = constructions.find((o) => o.id === id);
+    const construction = constructions().find((o) => o.id === id);
     if (!construction) return total;
 
-    log += `<p>${i18n?.t(
-      `constructions:${construction.id}`
-    )}: <strong>${construction.score(player)}</strong></p>`;
+    const constructionScore = construction.score(player);
 
-    return total + construction.score(player);
+    // negative-points-compensated
+    if (construction.id === "writing-chamber") {
+      log += `<p>${i18n?.t("common:negative-points-compensated")} ${i18n?.t(
+        `constructions:writing-chamber`
+      )}: <strong>${construction.score(player)}</strong></p>`;
+    } else {
+      log += `<p>${i18n?.t(
+        `constructions:${construction.id}`
+      )}: <strong>${constructionScore}</strong></p>`;
+    }
+
+    return total + constructionScore;
   }, 0);
 
   log += "<hr />";
 
   score += scoreForConstructions;
-
-  log += `<p>${i18n?.t("common:score-so-far")} <strong>${score}</strong></p>`;
-
-  log += "<hr />";
-
-  // Remove points because of animals
-  if (player.resources.sheep === 0) {
-    log += `<p>${i18n?.t("common:missing-animal")} ${i18n?.t(
-      `resources:sheep`
-    )} <strong>-2</strong></p>`;
-    score -= 2;
-  }
-  if (player.resources.boar === 0) {
-    log += `<p>${i18n?.t("common:missing-animal")} ${i18n?.t(
-      `resources:boar`
-    )} <strong>-2</strong></p>`;
-    score -= 2;
-  }
-  if (player.resources.cattle === 0) {
-    log += `<p>${i18n?.t("common:missing-animal")} ${i18n?.t(
-      `resources:cattle`
-    )} <strong>-2</strong></p>`;
-    score -= 2;
-  }
-  if (player.resources.donkey === 0) {
-    log += `<p>${i18n?.t("common:missing-animal")} ${i18n?.t(
-      `resources:donkey`
-    )} <strong>-2</strong></p>`;
-    score -= 2;
-  }
-
-  // Remove up to 7 negative points if have Writing Chamber
-  const hasWritingChamber = player.constructions.find(
-    (o) => o.id === "writing-chamber"
-  );
-  if (hasWritingChamber) {
-    if (score < 0) {
-      log += `<p>${i18n?.t("common:ignoring-up-to-7-negatives")}</p>`;
-
-      if (score < -7) {
-        score -= 7;
-      } else {
-        score = 0;
-      }
-    }
-  }
-
-  log += "<hr />";
 
   log += `<p>${i18n?.t("common:final-score")} <strong>${score}</strong></p>`;
 

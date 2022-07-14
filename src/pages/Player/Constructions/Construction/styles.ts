@@ -12,12 +12,12 @@ export const Container = styled.button.attrs({
   display: flex;
   flex-direction: column;
 
-  width: 10rem;
-  height: 10rem;
+  width: 7rem;
+  height: 8rem;
 
   border: 1px solid
-    ${({ theme }) => transparentize(0.5, theme.background.contrast)};
-  border-radius: 10px;
+    ${({ theme }) => transparentize(0.8, theme.background.contrast)};
+  border-radius: 5px;
   overflow: hidden;
   padding: 0;
 
@@ -26,9 +26,9 @@ export const Container = styled.button.attrs({
   & > header {
     width: 100%;
     background-color: ${({ theme, color }) => theme[color]};
-    padding: 0.1rem;
+    padding: 0.2rem;
 
-    height: 2.5rem;
+    height: 3rem;
 
     display: flex;
     flex-direction: row;
@@ -47,7 +47,7 @@ export const Container = styled.button.attrs({
 
   & > section {
     flex: 1;
-    padding: 0.5rem;
+    padding: 0.2rem 0.5rem;
     width: 100%;
 
     display: flex;
@@ -74,11 +74,11 @@ export const Container = styled.button.attrs({
     gap: 0.5rem;
 
     .score {
-      opacity: 0.5;
+      display: none;
     }
 
     .score:nth-last-of-type(1) {
-      opacity: 1;
+      display: flex;
     }
 
     svg {

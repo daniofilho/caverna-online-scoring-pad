@@ -24,5 +24,6 @@
   "go-back": "Voltar",
   "see-log": "Detalhes da Pontuação",
   "score-calculation-log": "Log de Cálculo da pontuação",
-  "final-score": "Pontuação final"
+  "final-score": "Pontuação final",
+  "negative-points-compensated": "Pontos negativos compensados pela construção"
 }

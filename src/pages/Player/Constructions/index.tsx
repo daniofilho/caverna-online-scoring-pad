@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import ScrollContainer from "react-indiana-drag-scroll";
 
 import { useCalculator } from "hooks/useCalculator";
@@ -13,7 +14,22 @@ interface IConstructionsProps {
 
 const Constructions: React.FC<IConstructionsProps> = ({ color }) => {
   const { selectedPlayer } = useCalculator();
-  const filteredConstructions = constructions.filter((o) => o.color === color);
+  const filteredConstructions = constructions().filter(
+    (o) => o.color === color
+  );
+
+  const orderedConstructions = filteredConstructions.sort((a, b) => {
+    const fa = a.label.toLowerCase();
+    const fb = b.label.toLowerCase();
+
+    if (fa < fb) {
+      return -1;
+    }
+    if (fa > fb) {
+      return 1;
+    }
+    return 0;
+  });
 
   if (!selectedPlayer) return <></>;
 
@@ -21,7 +37,7 @@ const Constructions: React.FC<IConstructionsProps> = ({ color }) => {
     <>
       <ScrollContainer vertical={false}>
         <Container>
-          {filteredConstructions.map((construction, index) => {
+          {orderedConstructions.map((construction, index) => {
             const playerHasConstruction = selectedPlayer.constructions.find(
               (o) => o.id === construction.id
             );

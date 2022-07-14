@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { HiArrowNarrowRight } from "react-icons/hi";
 
 import { useTranslation } from "next-i18next";
 
@@ -69,13 +68,7 @@ const Construction: React.FC<IConstructionProps> = ({
         <footer>
           <Score>{scoreLabel}</Score>
 
-          {isActive && (
-            <>
-              <HiArrowNarrowRight />
-
-              <Score>{score(selectedPlayer)}</Score>
-            </>
-          )}
+          {isActive && <Score>{score(selectedPlayer)}</Score>}
         </footer>
       </Container>
     </div>
