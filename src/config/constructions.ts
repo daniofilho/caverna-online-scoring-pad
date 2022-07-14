@@ -473,7 +473,37 @@ const constructions: IConstruction[] = [
     cost: {
       stone: 2,
     },
-    score: () => 0,
+    score: (player?: IPlayer) => {
+      if (!player) return 0;
+      let totalOfNegativePoints = 0;
+
+      // will loose some points?
+
+      // for animals
+      if (player.resources.sheep === 0) {
+        totalOfNegativePoints += 2;
+      }
+      if (player.resources.boar === 0) {
+        totalOfNegativePoints += 2;
+      }
+      if (player.resources.cattle === 0) {
+        totalOfNegativePoints += 2;
+      }
+      if (player.resources.donkey === 0) {
+        totalOfNegativePoints += 2;
+      }
+
+      // for unused space
+      if (player.resources.unusedSpace > 0) {
+        totalOfNegativePoints += player.resources.unusedSpace;
+      }
+
+      if (totalOfNegativePoints <= 7) {
+        return totalOfNegativePoints;
+      }
+
+      return 7;
+    },
     scoreLabel: "0",
   },
   {

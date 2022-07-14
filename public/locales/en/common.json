@@ -24,5 +24,6 @@
   "go-back": "Go back",
   "see-log": "Score Details",
   "score-calculation-log": "Score Calculation Log",
-  "final-score": "Final Score"
+  "final-score": "Final Score",
+  "negative-points-compensated": "Negative points compensated by the construction"
 }
