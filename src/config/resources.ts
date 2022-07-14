@@ -149,7 +149,7 @@ const resources: IResource[] = [
   {
     id: "armedDwarf",
     type: "family",
-    points: 1,
+    points: 0,
     minQuantity: 0,
     maxQuantity: 6,
     showWhenHasConstructionId: [

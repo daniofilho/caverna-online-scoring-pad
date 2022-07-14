@@ -18,6 +18,7 @@ interface IFinalScoreSummary {
 
 export default (player: IPlayer): IFinalScoreSummary => {
   let log = "";
+  let score = 0;
 
   const calculateResourceScore = (resources: IResource[]): number =>
     resources.reduce((total, resource) => {
@@ -39,9 +40,21 @@ export default (player: IPlayer): IFinalScoreSummary => {
 
   log += "<hr />";
 
+  score += scoreForAnimals;
+
+  log += `<p>${i18n?.t("common:score-so-far")} <strong>${score}</strong></p>`;
+
+  log += "<hr />";
+
   // # Food
   const foodResources = resources.filter((o) => o.type === "food");
   const scoreForFood = calculateResourceScore(foodResources);
+
+  score += scoreForFood;
+
+  log += "<hr />";
+
+  log += `<p>${i18n?.t("common:score-so-far")} <strong>${score}</strong></p>`;
 
   log += "<hr />";
 
@@ -49,11 +62,23 @@ export default (player: IPlayer): IFinalScoreSummary => {
   const materialsResources = resources.filter((o) => o.type === "material");
   const scoreForMaterials = calculateResourceScore(materialsResources);
 
+  score += scoreForMaterials;
+
+  log += "<hr />";
+
+  log += `<p>${i18n?.t("common:score-so-far")} <strong>${score}</strong></p>`;
+
   log += "<hr />";
 
   // # Family
   const familyResources = resources.filter((o) => o.type === "family");
   const scoreForFamily = calculateResourceScore(familyResources);
+
+  score += scoreForFamily;
+
+  log += "<hr />";
+
+  log += `<p>${i18n?.t("common:score-so-far")} <strong>${score}</strong></p>`;
 
   log += "<hr />";
 
@@ -61,18 +86,11 @@ export default (player: IPlayer): IFinalScoreSummary => {
   const landResources = resources.filter((o) => o.type === "land");
   const scoreForLand = calculateResourceScore(landResources);
 
+  score += scoreForLand;
+
   log += "<hr />";
 
-  const scoreForResources =
-    scoreForAnimals +
-    scoreForFood +
-    scoreForMaterials +
-    scoreForFamily +
-    scoreForLand;
-
-  log += `<p>${i18n?.t(
-    "common:score-so-far"
-  )} <strong>${scoreForResources}</strong></p>`;
+  log += `<p>${i18n?.t("common:score-so-far")} <strong>${score}</strong></p>`;
 
   log += "<hr />";
 
@@ -90,7 +108,8 @@ export default (player: IPlayer): IFinalScoreSummary => {
 
   log += "<hr />";
 
-  let score = scoreForResources + scoreForConstructions;
+  score += scoreForConstructions;
+
   log += `<p>${i18n?.t("common:score-so-far")} <strong>${score}</strong></p>`;
 
   log += "<hr />";
