@@ -31,8 +31,6 @@ const Constructions: React.FC<IConstructionsProps> = ({ color }) => {
     return 0;
   });
 
-  console.log(orderedConstructions);
-
   if (!selectedPlayer) return <></>;
 
   return (
