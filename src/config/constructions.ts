@@ -546,6 +546,11 @@ const constructions = (): IConstruction[] => [
         totalOfNegativePoints += player.resources.unusedSpace;
       }
 
+      // for begging marker
+      if (player.resources.beggingMarker) {
+        totalOfNegativePoints += player.resources.beggingMarker * 3;
+      }
+
       if (totalOfNegativePoints <= 7) {
         return totalOfNegativePoints;
       }
