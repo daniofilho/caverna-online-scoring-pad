@@ -497,7 +497,7 @@ const constructions = (): IConstruction[] => [
         resources: { grain, vegetable },
       } = player;
       const minFoodNumber = Math.min(grain, vegetable);
-      return Math.floor(minFoodNumber / 3);
+      return minFoodNumber * 2;
     },
     scoreLabel: "*",
   },
