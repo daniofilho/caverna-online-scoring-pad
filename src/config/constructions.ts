@@ -570,9 +570,9 @@ const constructions = (): IConstruction[] => [
     score: (player?: IPlayer) => {
       if (!player) return 0;
       const {
-        resources: { boar, cattle, dog, donkey, sheep },
+        resources: { boar, cattle, donkey, sheep },
       } = player;
-      const totalAnimals = boar + cattle + dog + donkey + sheep;
+      const totalAnimals = boar + cattle + donkey + sheep;
       return Math.floor(totalAnimals / 3);
     },
     scoreLabel: "*",
