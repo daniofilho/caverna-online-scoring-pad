@@ -99,12 +99,15 @@ const Resources: React.FC = () => {
                 <SliderTrack>
                   <SliderFilledTrack />
                 </SliderTrack>
+
                 <SliderThumb />
               </Slider>
 
               <p>{playerResourceQuantity}</p>
 
-              <p>{Math.ceil(playerResourceQuantity * points)}</p>
+              {id !== "adjacentDwelling" && (
+                <p>{Math.ceil(playerResourceQuantity * points)}</p>
+              )}
             </section>
           </div>
         );
