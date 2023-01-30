@@ -26,9 +26,15 @@ export default (player: IPlayer): IFinalScoreSummary => {
         resource.points * player.resources[resource.id]
       );
 
-      log += `<p>${i18n?.t(`resources:${resource.id}`)}: (${
-        player.resources[resource.id]
-      }x) <strong>${resourceScore}</strong></p>`;
+      if (resource.id === "adjacentDwelling") {
+        log += `<p>${i18n?.t(`resources:${resource.id}`)}: (${
+          player.resources[resource.id]
+        }x)  </p>`;
+      } else {
+        log += `<p>${i18n?.t(`resources:${resource.id}`)}: (${
+          player.resources[resource.id]
+        }x) <strong>${resourceScore}</strong></p>`;
+      }
 
       return total + resourceScore;
     }, 0);
